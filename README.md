@@ -1,2 +1,2 @@
-# bitter Template Engine
-Bitter PHP template Engine
+# Bitter Template Engine
+PHP template Engine
