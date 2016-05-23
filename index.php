@@ -1,7 +1,7 @@
 <?php
 require_once('modules/controls.php');
 $template = new bitter();
-$template->dubuger_level = 1;
+$template->dubuger_level = 2;
 
 $datas = array('name' => 'chrys', 'title' => 'template engine', 'user' => array('fname' => 'chrys', 'mname' => 'chiderah', 'ugwu'));
 
