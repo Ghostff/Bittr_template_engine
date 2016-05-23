@@ -1,14 +1,10 @@
 <?php
 require_once('modules/controls.php');
 $template = new bitter();
-$template->dubuger_level = 3;
+$template->dubuger_level = 1;
 
-$datas = array('name' => 'chrys', 'email' => 'frankchris@hotmail.com');
+$datas = array('name' => 'chrys', 'title' => 'hey');
 
-
-if(!$template->error)
-	echo $template->render('test.html', $datas);
-else
-	echo $template->error;
+echo $template->render('test.html', $datas);
 
 ?>

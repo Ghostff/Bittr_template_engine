@@ -1,36 +1,47 @@
 <?php
 namespace engine;
+
 class template
 {
 	public $error = array();
-	private $dubuger_level;
-	private $Newfile;
-	private $attributes;
-	public $sglvo;//single value open  default( '{{' );
-	public $sglvc;//single value close default( '}}' );
-	public $dbug_empty_attrs;//debug empyt or un replaced attributes
+	private $dubuger_level = null;
+	private $Newfile = null;
+	private $attributes = null;
+	public $sglvo = null;//single value open  default( '{{' );
+	public $sglvc = null;//single value close default( '}}' );
+	public $justUpper = false;
 	public function render($file, $attributes, $debug_level)
 	{
 		//set defualt dubug level
 		$this->dubuger_level = $debug_level;
-		//get template file contents
-		$this->Newfile =  file_get_contents($file);
 		//pupulate attribute 
 		$this->attributes = $attributes;
-		//check for single value replacement
-		$this->SingleVars();
+		//get template file contents
+		$this->Newfile =  $this->SingleVars(file_get_contents($file));
+		$this->Newfile =  $this->FEach($this->Newfile);
+		return $this->Newfile;
 	}
-	private function SingleVars()
+	//single var replacement
+	private function SingleVars($file)
 	{
-		//match key name if file
-		$pathern = $values = array();
-		foreach($this->attributes as $name => $new_values){
-			$pathern[] = '/'.$this->sglvo.'\s?$name\s?'.$this->sglvc.'/';
-			$values[] = $new_values;
+		if (count($this->attributes) > 0){
+			//match key name if file
+			$pathern = $values = array();
+			$case_sensitive = '';
+			foreach ($this->attributes as $name => $new_values) {
+				if ($this->justUpper) {
+					$name = strtoupper($name);
+					$case_sensitive = 'i';
+				}
+				$pathern[] = '#\\' . $this->sglvo.'\s?' . $name . '\s?\\' . $this->sglvc . '#' . $case_sensitive;
+				$values[] = $new_values;
+			}
+			return preg_replace($pathern, $values, $file);
 		}
-		return preg_replace($pathern, $values, $this->Newfile);
+	}
+	//foreach replacement
+	private function FEach($file)
+	{
+		return $file;
 	}
 }
-
-
-?>
