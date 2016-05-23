@@ -1,9 +1,7 @@
 <?php
-class overload
+class overload extends engine\template
 {
-	public $error = array();
-	public $dubuger_level = false;
-	public $template_dir;//where template files are stored (default: /templates)
+	protected $template_dir;//where template files are stored (default: /templates)
 	protected function stack($filename, $attribute)
 	{
 		if (!$this->template_dir) {
@@ -19,7 +17,6 @@ class overload
 			//get specified file name and directory for accurate log
 			return $this->ErrorInfo($this->lang('FILE_N_EXT', array($filename, $this->template_dir.$filename)));
 		}
-		return $this->template_dir.$filename;
 	}
 	//error handler
 	public function ErrorInfo($occured_error)
