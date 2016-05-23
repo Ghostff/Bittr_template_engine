@@ -22,14 +22,17 @@ class template
 		if (count($this->attributes) > 0){
 			//match key name if file
 			$pathern = $values = array();
-			$case_sensitive = '';
+			$case_sensitive = 'i';
 			foreach ($this->attributes as $name => $new_values) {
 				if ($this->justUpper) {
 					$name = strtoupper($name);
-					$case_sensitive = 'i';
+					$case_sensitive = '';
 				}
 				if (is_array($new_values)){
 					foreach ($new_values as $new_ky => $vals) {
+						if ($this->justUpper) {
+							$new_ky = strtoupper($new_ky);
+						}
 						$pathern[] = '#\\' . $this->sglvo.'\s*' . $name . '\s*.\s*' . $new_ky . '\s*\\' . $this->sglvc . '#' . $case_sensitive;
 						$values[] = $vals;
 					}
