@@ -5,18 +5,22 @@ class bitter extends overload
 	public $sglvc = null;//single value close default( '}}' );
 	public $dubuger_level = null;
 	public $justUpper = false;
-	public $error = array();
+	public $error = null;
 	public function render($filename, $attribute = null)
 	{
 		$this->sglvo = TOPN;
 		$this->sglvc = TCLS;
 		$this->justUpper = UPER;
 		$file = $this->stack($filename, $attribute);
-		$rendered = $this->NewEngine($this->template_dir.$filename, $attribute, $this->dubuger_level);
+		$error = $this->error;
 		if (!$this->error) {
-			return $rendered;
-		}
-		else {
+			$rendered = $this->NewEngine($this->template_dir.$filename, $attribute, $this->dubuger_level);
+			if (!$this->error) {
+				return $rendered;
+			} else {
+				return $this->error;
+			}
+		} else {
 			return $this->error;
 		}
 		

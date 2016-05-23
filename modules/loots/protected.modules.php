@@ -2,35 +2,6 @@
 class overload extends engine\template
 {
 	protected $template_dir;//where template files are stored (default: /templates)
-	protected function stack($filename, $attribute)
-	{
-		if (!$this->template_dir) {
-			//setting defualt directory for template files if non is selectedd
-			$this->template_dir = TEMPLATE_DIR;
-		}
-		//make log folder if debug level is set to 2
-		if (($this->dubuger_level == 2 || $this->dubuger_level == 3) && !is_dir(LOG)) {
-			mkdir(LOG);
-		}
-		//check if file exists
-		if ($this->dubuger_level && !file_exists($this->template_dir.$filename)) {
-			//get specified file name and directory for accurate log
-			return $this->ErrorInfo($this->lang('FILE_N_EXT', array($filename, $this->template_dir.$filename)));
-		}
-	}
-	//error handler
-	public function ErrorInfo($occured_error)
-	{
-		//prevent overwriting of errors
-		if (empty($this->error) || $this->dubuger_level == 2) {
-		    $this->error = $this->Log($occured_error);
-		}
-	}
-	//file writing handler
-	protected function infile($filename, $error_msg)
-	{
-		file_put_contents($filename, $error_msg, FILE_APPEND | LOCK_EX);
-	}
 	//error log handler
 	protected function Log($error)
 	{
@@ -55,6 +26,35 @@ class overload extends engine\template
 				return '['.DATE.'] '.$error;
 			}
 		}
+	}
+	//error handler
+	public function ErrorInfo($occured_error)
+	{
+		//prevent overwriting of errors
+		if (empty($this->error) || $this->dubuger_level == 2) {
+		    $this->error = $this->Log($occured_error);
+		}
+	}
+	protected function stack($filename, $attribute)
+	{
+		if (!$this->template_dir) {
+			//setting defualt directory for template files if non is selectedd
+			$this->template_dir = TEMPLATE_DIR;
+		}
+		//make log folder if debug level is set to 2
+		if (($this->dubuger_level == 2 || $this->dubuger_level == 3) && !is_dir(LOG)) {
+			mkdir(LOG);
+		}
+		//check if file exists
+		if ($this->dubuger_level && !file_exists($this->template_dir.$filename)) {
+			//get specified file name and directory for accurate log
+			return $this->ErrorInfo($this->lang('FILE_N_EXT', array($filename, $this->template_dir.$filename)));
+		}
+	}
+	//file writing handler
+	protected function infile($filename, $error_msg)
+	{
+		file_put_contents($filename, $error_msg, FILE_APPEND | LOCK_EX);
 	}
 	//language handler
 	protected function lang($key, $markers = NULL)
