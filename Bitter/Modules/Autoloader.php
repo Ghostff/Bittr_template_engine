@@ -35,17 +35,5 @@ class Autoloader
 		}
 		return $language;
 	}
-	/**
-	 * Load Sandbox
-     * required for error handling and SANDBOX_TYPE.
-     */
-	public static function loadSandbox()
-	{
-		$sandbox =  dirname(__FILE__) . DSEP . 'Sandbox' . DSEP . 'Controls.php';
-		if (!file_exists($sandbox)) {
-			die('Failed to load Sandbox from ' . $language);
-		}
-		return $sandbox;
-	}
 	
 }

@@ -1,7 +1,7 @@
 <?php
 namespace Sandbox;
 
-class Controls extends \Loader
+class Controls extends Debug
 {
 	private function toFileAndOutput($errormessage, $flag, $pathtonewdir)
 	{
@@ -26,7 +26,7 @@ class Controls extends \Loader
 	}
 	protected function newError($errormessage, $flag = null)
 	{
-		$pathtonewdir =  dirname(__FILE__) . DSEP . '..' . DSEP . '..' . DSEP . 'Logs';
+		$pathtonewdir =  ROOT . 'Logs';
 		//output error to browser
 		if (SANDBOX_TYPE == 1) {
 			if ($flag == static::E_LOW) {

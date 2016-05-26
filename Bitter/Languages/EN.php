@@ -8,6 +8,8 @@ $lang = array_merge($lang,array(
 	'FILE_N_EXT' 		=> 'The template \'%m1%\' does not exist. specified path: \'%m2%\'',
 	'INVL_DBG_LVL' 		=> 'invalid debuger level(\'%m1%\')',
 	'INVL_FEAHC' 		=> 'Invalid query on foreach ',
+	'TPL_LD_FAIL' 		=> 'The template \'%m1%\' does not exist in your template folder at \'%m2%\'',
+	'FUNC_N_EXITS' 		=> 'The function \'%m1%\' specified at \'%m2%\' was not found',
 	));
 
 //file errors

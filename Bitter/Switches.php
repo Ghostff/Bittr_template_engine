@@ -1,5 +1,4 @@
 <?php
-
 /*
 *	Bitter tag open
 *	compiles any code that starts with '[ (STAG) ' and ends with '] (ETAG)'
@@ -31,7 +30,7 @@ define('SANDBOX', true);
 *		@param 3 Log to file 
 *	Note: SANDBOX must be true to recognize SANDBOX_TYPE 
 */
-define('SANDBOX_TYPE', 2);
+define('SANDBOX_TYPE', 1);
 /*
 * 	Default template name
 */
@@ -50,6 +49,10 @@ define('DEFAULT_LANG', 'EN');
 */
 define('DSEP', DIRECTORY_SEPARATOR);
 /*
+*	Bitter path
+*/
+define('ROOT', dirname(__FILE__). DSEP );
+/*
 * 	let Bitter automatically check for update
 */
 define('CHECK_UPDATE', true);
@@ -58,5 +61,16 @@ define('CHECK_UPDATE', true);
 */
 date_default_timezone_set('UTC');
 define('DATE', date(DATE_RFC2822));
-
+/*
+* 	Template directory
+*	put all your template file in this(Templates) directory
+*	change to diffrent name if you want your template on diffrent directory
+*/
+define('TMPLT_DIR', ROOT . 'Templates' . DSEP);
+/*
+* 	Template format
+*	A format or extension Bitter will recognize as a template file
+*	default tpl
+*/
+define('TPL_EX', '.tpl');
 

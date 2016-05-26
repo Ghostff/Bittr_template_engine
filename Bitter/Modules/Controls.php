@@ -18,10 +18,6 @@ class Controls extends Sandbox\Controls
 				$this->newError($this->lang('UDATED_V_L'), static::E_HIGH);
 			}
 		}
-		else {
-			
-		}
-		//check for new version of bitter
 		
 	}
 	

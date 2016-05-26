@@ -1,25 +1,33 @@
 <?php
 class Compiler extends Casts
 {
+	protected $newattributes;
+	/*	Set Attributes
+	*	All alternative to second parameter render
+	*	set attributes that will be passed into template
+	* 	this becomes redundant if second parameter of render is not null
+	*	@param  attributes (array) 
+			eg array('name' => 'chrys') ...
+    */
 	public function set($attributes)
 	{
 		$this->newattributes = $attributes;
 	}
+	/*	Renders passed attributes into template file
+	* 	@param template name (string) without extension 
+	*	@param attributes (array) 
+			eg array('name' => 'chrys') ...
+    */
 	public function render($templatename, $attributes = null)
 	{
 		if (!$attributes) {
 			$attributes = $this->newattributes;
 		}
-		if ($this->er_flag == static::E_HIGH && trim($this->error) == true) {
-			return $this->error;
-		}
-		else {
-			if (in_array(SANDBOX_TYPE, array('1', '2')) && trim($this->error) == true) {
-				echo $this->error . '<br />';
-			}
-			///Bitter compile
-			echo 'sup';
-		}
+		return $this->run(['load' => array($templatename),
+						   'sandbox' => array(null),
+						   'caches' => array(),
+						  ],
+						 $attributes);
 	}
 	
 }

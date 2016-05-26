@@ -5,6 +5,3 @@ require 'Modules'. DSEP .'Autoloader.php';
 Autoloader::start();
 //load default language
  require Autoloader::loadLanguage();
- //load sandbiox
- if ( SANDBOX )
- 	require Autoloader::loadSandbox();
