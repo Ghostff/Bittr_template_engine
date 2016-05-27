@@ -1,11 +1,19 @@
 <?php
-class Bitter extends Controls
+class Bitter extends Compiler
 {
-	/*
-	*	get Latest Bitter version
-	*/
-	protected function getVersion()
+	public function set($attributes)
 	{
-		return '1.2';
+		$this->attributes = $attributes;
+	}
+	public function render($template_name, $attributes = null)
+	{
+		$this->checkUpdate(CHECK_UPDATE);
+		if ($attributes) {
+			$this->attributes[] = $attributes;		
+		}
+		if ($this->isValidTemplate($template_name)) {
+			$this->attributes[] = $this->staticAttributes();
+			return $this->compile($this->template);	
+		}
 	}
 }

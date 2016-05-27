@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>[ TITLE ]</title>
+</head>
+
+<body>
+[FNAME] [LNAME]
+ <ol>
+  <li>[USER.TYPE.NAME]</li>
+   <li>[BITTER.V]</li>
+   <li>[BITTER.VERSION]</li>
+    <li>[SCH]</li>
+      <li>[BITTER.D]</li>
+   <li>[BITTER.DATE]</li>
+  <li>Tea</li>
+</ol>
+
+</body>
+</html>

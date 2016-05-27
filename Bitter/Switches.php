@@ -72,5 +72,5 @@ define('TMPLT_DIR', ROOT . 'Templates' . DSEP);
 *	A format or extension Bitter will recognize as a template file
 *	default tpl
 */
-define('TPL_EX', '.tpl');
+define('TPL_EX', '.bt');
 

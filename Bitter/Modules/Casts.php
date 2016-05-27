@@ -2,7 +2,7 @@
 class Casts extends Functions
 {
 	const VERSION = '1.0';
-    const RELEASE_DATE = '2012-06-01';
+    const RELEASE_DATE = '15-05-2016';
 	
 	/** Error flags
 	*	E_LOW allow compiler to continue even though an erro occured
@@ -14,6 +14,7 @@ class Casts extends Functions
 	public $error = false;
 	public $er_flag = null;
 	
-	protected $newattributes;
+	protected $attributes = array();
+	protected $template;
 	
 }
