@@ -4,18 +4,9 @@
 *	compiles any code that starts with '[ (STAG) ' and ends with '] (ETAG)'
 * 	you can replace with any special character if the default dosnt work out so well
 */
-define('STAG', '[');
-define('ETAG', ']');
+define('STAG', '{');
+define('ETAG', '}');
 
-/*
-*	Capital letters recongnition (ONLY)
-*	Bitter only compliles the tags with Capital letters
-*		eg
-*			[BITTER] works
-*			[Bitter] or [bitter] donst work
-* 	set to false if you want Bitter to ignore cases and compile
-*/
-define('CAP_REC', true);
 
 /*
 *	Bitter Sandbox
@@ -63,7 +54,7 @@ date_default_timezone_set('UTC');
 define('DATE', date(DATE_RFC2822));
 /*
 * 	Template directory
-*	put all your template file in this(Templates) directory
+*	put all your template file in this(Templates) directory *** if none is specified in setTemplatePath
 *	change to diffrent name if you want your template on diffrent directory
 */
 define('TMPLT_DIR', ROOT . 'Templates' . DSEP);
