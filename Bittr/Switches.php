@@ -4,8 +4,8 @@
 *	compiles any code that starts with '[ (STAG) ' and ends with '] (ETAG)'
 * 	you can replace with any special character if the default dosnt work out so well
 */
-define('STAG', '{');
-define('ETAG', '}');
+define('STAG', '{{');
+define('ETAG', '}}');
 
 
 /*
@@ -25,7 +25,7 @@ define('SANDBOX_TYPE', 1);
 /*
 * 	Default template name
 */
-define('NAME', 'bitter');
+define('NAME', 'bittr');
 /*
 * 	Set up default language
 * 	Your Error will be displayed or log according to your selected language
@@ -64,4 +64,11 @@ define('TMPLT_DIR', ROOT . 'Templates' . DSEP);
 *	default tpl
 */
 define('TPL_EX', '.bt');
+/*
+* 	assigned value overiding
+*	this prevent the assignment of values with same name
+*	default false set to true if you want the new name
+*	to overide the existing
+*/
+define('OVERIDE', false);
 

@@ -1,0 +1,14 @@
+{{ inc 'inc.bt' }}
+<br />
+{{ for m in users }}
+	<li>{{ key }} : {{ m }} </li>
+{{ /for }}	 
+
+
+
+
+<hr />
+{{ users.i }}
+
+</body>
+</html>
