@@ -2,7 +2,7 @@
 
 abstract class Cast
 {
-	public $otag = '{{';
-	public $ctag = '}}';
-	
+    public $otag = '{{';
+    public $ctag = '}}';
+    
 }
