@@ -1,11 +1,11 @@
 <?php
-require_once 'Bittr' . DIRECTORY_SEPARATOR . '/init.php';
-$bittr = new Bittr();
-$bittr->setTemplatePath(__DIR__ . '/Bittr/Templates');
 
-$bittr->assign('users', array('a' => 'aba', 'i' => 'imo', 'j' => 'jigawa'));
+require 'App' . DIRECTORY_SEPARATOR . 'init.php';
 
+//Bittr::setPath('App');
+//Bittr::listOut(true);
+//Bittr::setAttribute('name', 'hey chrys');
+//Bittr::listAttribute();
 
-
-$bittr->render('test.bt');
-
+Bittr::setAttribute('name', 'hey chrys');
+ Bittr::compile('new');
