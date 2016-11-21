@@ -2,17 +2,20 @@
 
 namespace Compiler;
 
-class Settings
+class Config
 {
     protected static $ext = '.bt';
     
-    protected static $path = 'Templates';
+    public static $template_path = null;
     
     protected static $tags = array(
       'open' => '@{',
       'close' => '}'
     );
     
+    protected static $log = null;
+    
+    public static $time_zone = 'UTC';
     
     /*
     * Sets a template file extension
@@ -31,9 +34,9 @@ class Settings
     * return void
     * @param (string) template path
     */
-    public static function setPath($path)
+    public static function setTemplatePath($path)
     {
-        static::$path = $path;
+        static::$template_path = $path;
     }
     
     /*
@@ -52,5 +55,27 @@ class Settings
         if ($close != null) {
             static::$tags['close'] = $close;
         }
+    }
+    
+    /*
+    * Sets log Directory
+    *
+    * return void
+    * @param (string) directory name
+    */
+    public static function setLogDir($path)
+    {
+        static::$log = $path;
+    }
+    
+    /*
+    * Sets default timezone 
+    *
+    * return void
+    * @param (string) timezone
+    */
+    public static function setTimeZone($time_zone)
+    {
+        static::$time_zone = $time_zone;
     }
 }

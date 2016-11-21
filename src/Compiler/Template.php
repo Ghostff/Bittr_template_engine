@@ -27,17 +27,28 @@ class Template
         $this->attributes = $attributes;
         $this->string = $template_string;
         
-        list($this->open, $this->close) = array_values($tags);
+        //excape all character that can posible be use as a tag
+        list($this->open, $this->close) = array_map(function($values)
+        {
+            return addcslashes($values, '.\+*?[^]($){}|');
+            
+        }, array_values($tags));
+        
     }
     
     
     private function getSyntax()
     {
+        $new_String = null;
         
-        var_dump('/' . $this->open . '\s*(req|inc)\s*\'(.*)\'\s*\\' . $this->close .'/');   
-        if (preg_match('/' . $this->open . '\s*(req|inc)\s*\'(.*)\'\s*\\' . $this->close .'/', $this->string, $matched)) {
-            var_dump($matched);
+        asType: {
+            $req_inc = '/' . $this->open . '\s*(req|inc) \'(.*)\'\s*' . $this->close .'/';
+            if (preg_match_all($req_inc, $this->string, $matched)) {
+                \Sandbox\GetFile::asType($matched, $this->string);
+                goto asType;
+            }
         }
+        var_dump($this->string);
     }
     
     /*

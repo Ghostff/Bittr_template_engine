@@ -1,0 +1,8 @@
+Warning: ehey
+Warning: ehey
+Warning: file (make.bt) was not found
+Warning: file (make.bdt) was not found
+Warning: file (make.bdt) was not found
+Warning: file (make.bdt) was not found
+Warning: file (make.bdt) was not found
+Warning: file (/home/ubuntu/workspace/src/../Templates/make.bdt) was not found

@@ -1,1 +1,3 @@
-req 'make.bt'
+@{ req 'req.bt' }
+
+@{ inc 'inc.bt' }
