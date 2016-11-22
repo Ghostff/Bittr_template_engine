@@ -78,4 +78,35 @@ class Config
     {
         static::$time_zone = $time_zone;
     }
+    
+    /*
+    * lists out all the template files 
+    *
+    * return array
+    * @param (bool) list file with bittr extension only
+    */
+    public static function listOut($with_extension = false)
+    {
+        if ( ! static::$template_path) {
+            $dir = TEMPLATE_PATH . $template_name;
+        }
+        else {
+            $dir = static::$template_name . DIRECTORY_SEPARATOR . $template_name;
+        }
+        
+        if ( ! $with_extension) {
+            return array_map(function($names)
+            {
+                $path_parts = pathinfo($names);
+                return $path_parts['basename'];
+            }, glob($dir . '/*'));
+        }
+        else {
+            return array_map(function($names)
+            {
+                $path_parts = pathinfo($names);
+                return $path_parts['basename'];
+            }, glob($dir . '/*' . static::$ext));
+        }
+    }
 }
