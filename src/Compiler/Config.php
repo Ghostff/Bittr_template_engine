@@ -109,14 +109,14 @@ class Config
             }, glob($dir . '/*' . static::$ext));
         }
     }
-	
-	/*
+    
+    /*
     * list all defined attributes 
     *
     * return array
     */
-	public static function listAttribute()
-	{
-		return static::$attributes;
-	}
+    public static function listAttribute()
+    {
+        return static::$attributes;
+    }
 }
