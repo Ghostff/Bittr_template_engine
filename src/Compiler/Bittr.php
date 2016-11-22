@@ -5,7 +5,7 @@ namespace Compiler;
 class Bittr extends Config
 {
     
-    private static $attributes = array();
+    protected static $attributes = array();
     /*
     * Sets a template attribute
     *
@@ -72,7 +72,7 @@ class Bittr extends Config
             $message = 'Warning: ' . $message . PHP_EOL;
         }
         else {
-             $message = 'Error: ' . $message . PHP_EOL;
+            $message = 'Error: ' . $message . PHP_EOL;
         }
         
         $file = $sub_dir . DIRECTORY_SEPARATOR . date('j') . '.txt';

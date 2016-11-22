@@ -23,6 +23,9 @@ ClassLoader::register();
 
 date_default_timezone_set(Compiler\Config::$time_zone);
 
+//set_exception_handler(array('Compiler\Except', 'handle'));
+//set_error_handler(array('Compiler\Except', 'handle'));
+
 define('COMPILER_PATH', __DIR__ . DIRECTORY_SEPARATOR . 'Compiler' . DIRECTORY_SEPARATOR);
 define('LOG_PATH', __DIR__ . DIRECTORY_SEPARATOR . 'Log' . DIRECTORY_SEPARATOR);
 define('SANDBOX_PATH', __DIR__ . DIRECTORY_SEPARATOR . 'Sandbox' . DIRECTORY_SEPARATOR);

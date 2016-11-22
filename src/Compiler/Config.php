@@ -88,10 +88,10 @@ class Config
     public static function listOut($with_extension = false)
     {
         if ( ! static::$template_path) {
-            $dir = TEMPLATE_PATH . $template_name;
+            $dir = TEMPLATE_PATH;
         }
         else {
-            $dir = static::$template_name . DIRECTORY_SEPARATOR . $template_name;
+            $dir = static::$template_name . DIRECTORY_SEPARATOR;
         }
         
         if ( ! $with_extension) {
@@ -109,4 +109,14 @@ class Config
             }, glob($dir . '/*' . static::$ext));
         }
     }
+	
+	/*
+    * list all defined attributes 
+    *
+    * return array
+    */
+	public static function listAttribute()
+	{
+		return static::$attributes;
+	}
 }
