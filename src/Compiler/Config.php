@@ -80,7 +80,7 @@ class Config
     }
     
     /*
-    * lists out all the template files 
+    * lists all the template files 
     *
     * return array
     * @param (bool) list file with bittr extension only
