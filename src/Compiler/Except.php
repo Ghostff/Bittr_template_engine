@@ -70,7 +70,7 @@ class Except extends \Exception
                             </tr>
                             <tr>
                             <td style="width: 8%;"><code>&nbsp;Args</code></td>
-                            <td style="width: 86.2097%;"><code>@arg: ' . implode('</code><br/><code>@arg: ', $trace[0]['args']) . '</td>
+                            <td style="width: 86.2097%;"><code>@arg: ' . @implode('</code><br/><code>@arg: ', $trace[0]['args']) . '</td>
                             </tr>
                             </tbody>
                         </table>
