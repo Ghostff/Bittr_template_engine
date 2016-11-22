@@ -71,6 +71,9 @@ class Bittr extends Config
         if ($type == 1) {
             $message = 'Warning: ' . $message . PHP_EOL;
         }
+        else {
+             $message = 'Error: ' . $message . PHP_EOL;
+        }
         
         $file = $sub_dir . DIRECTORY_SEPARATOR . date('j') . '.txt';
 

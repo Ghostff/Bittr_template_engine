@@ -6,6 +6,7 @@ class GetFile
 {
     public static function asType($type, &$templat_content)
     {
+        
         $string = null;
         foreach ($type[1] as $key => $value) {
 
@@ -33,7 +34,7 @@ class GetFile
                     $templat_content = str_replace($type[0][$key], $string, $templat_content);
                 }
                 else {
-                    \Compiler\Bittr::errLog('file (' .$file . ') was not found', 1);
+                    new \Compiler\Except('file (' .$file . ') was not found', 1);
                 }
             }
         }

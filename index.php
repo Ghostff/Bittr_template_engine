@@ -2,6 +2,8 @@
 
 use Compiler\Bittr as Bittr;
 
+const DEVELOPMENT_ENV = true;
+
 require 'src' . DIRECTORY_SEPARATOR . 'init.php';
 
 //Bittr::setPath('App');
