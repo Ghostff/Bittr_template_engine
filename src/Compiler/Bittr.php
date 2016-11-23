@@ -42,7 +42,7 @@ class Bittr extends Config
         $template =  new Template($template, $template_name);
 		
 		//excape all character that can posible be use as a tag
-        list($template->open, $template->close) = array_map(function($values)
+        list(Template::$open, Template::$close) = array_map(function($values)
         {
             return addcslashes($values, '.\+*?[^]($){}|');
             

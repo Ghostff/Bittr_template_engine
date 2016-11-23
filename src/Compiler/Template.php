@@ -13,10 +13,10 @@ class Template
     
     
     //opening tag identifier
-    public $open = null;
+    public static $open = null;
     
     //closing tag identifier
-    public $close = null;
+    public static $close = null;
     /*
     * Construct
     *
@@ -39,7 +39,8 @@ class Template
 		foreach ($this->lines as $line => $strings) {
 			
 			static::$line_number = $line;
-            $req_inc = '/' . $this->open . '\s*(req|inc) \'(.*?)\'\s*' . $this->close .'/';
+            $req_inc = '/' . static::$open . '\s*(req|inc) \'(.*?)\'\s*' . static::$close .'/';
+
 			if (preg_match_all($req_inc, $strings, $matched)) {
 				\Sandbox\GetFile::asType($matched, $this->lines, $line, static::$name);
 			}
@@ -55,6 +56,6 @@ class Template
     */
     public function compile()
     {
-        $this->getSyntax();
+        return $this->getSyntax();
     }
 }

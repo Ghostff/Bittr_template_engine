@@ -26,12 +26,10 @@ class GetFile
 					
 					$string = null;
 					if (is_array($template->compile())) {
-						var_dump(111);
-						$string = implode(', ', $template->compile());
+						$string = implode(PHP_EOL, $template->compile());
 					}
 					$line_string[$line_num] = str_replace($type[0][$key], $string, $line_string[$line_num]);
 					
-					var_dump($template->compile());
 					 
 					
 				}
