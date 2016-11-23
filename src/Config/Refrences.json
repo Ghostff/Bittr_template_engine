@@ -1,4 +1,4 @@
 {
-	"hs": "htmlspecialchars",
-	"he": "htmlentities"
+    "hs": "htmlspecialchars",
+    "he": "htmlentities"
 }
