@@ -6,36 +6,27 @@ class Template
 {
     //holds uncompiled template string
     private $lines = array();
-    
-    //holds attributes
-    private $attributes = array();
 	
-	private $name = null;
+	public static $name = null;
+	
+	public static $line_number = 0;
     
     
     //opening tag identifier
-    private $open = null;
+    public static $open = null;
     
     //closing tag identifier
-    private $close = null;
+    public static $close = null;
     /*
     * Construct
     *
     * return void
     * @param (mixed) string to compile
     */
-    public function __construct($template_array, $attributes, $tags, $name)
+    public function __construct($template_array, $name)
     {
-        $this->attributes = $attributes;
         $this->lines = $template_array;
-		$this->name = $name;
-        
-        //excape all character that can posible be use as a tag
-        list($this->open, $this->close) = array_map(function($values)
-        {
-            return addcslashes($values, '.\+*?[^]($){}|');
-            
-        }, array_values($tags));
+		static::$name = $name;
         
     }
     
@@ -47,16 +38,21 @@ class Template
 		
 		foreach ($this->lines as $line => $strings) {
 			
-			asType: {
-            $req_inc = '/' . $this->open . '\s*(req|inc) \'(.*)\'\s*' . $this->close .'/';
+			static::$line_number = $line;
+            $req_inc = '/' . static::$open . '\s*(req|inc) \'(.*?)\'\s*' . static::$close .'/';
+
 			if (preg_match_all($req_inc, $strings, $matched)) {
-					\Sandbox\GetFile::asType($matched, $this->lines, $line, &$this->name);
-					goto asType;
-				}
+				\Sandbox\GetFile::evaluate($matched, $this->lines, $line, static::$name);
 			}
+			
+			$var_type = '/' . static::$open . '\s*(\w+)([\.\w]*|(\s*<(.*?)>)*)\s*' . static::$close .'/'; 
+			if (preg_match_all($var_type, $strings, $matched)) {
+				\Sandbox\Variable::evaluate($matched, $this->lines, $line, static::$name);
+			}
+			
 
 		}
-        var_dump($this->lines);
+        return $this->lines;
     }
     
     /*
@@ -66,6 +62,6 @@ class Template
     */
     public function compile()
     {
-        $this->getSyntax();
+        return $this->getSyntax();
     }
 }

@@ -1,0 +1,4 @@
+{
+	'hs' : 'htmlspecialchars',
+	'he' : 'htmlentities',
+}

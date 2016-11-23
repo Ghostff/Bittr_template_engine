@@ -1,6 +1,6 @@
 <?php
 
-namespace Compiler;
+namespace Config;
 
 class Config
 {
