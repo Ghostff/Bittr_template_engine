@@ -5,7 +5,7 @@ namespace Compiler;
 class Bittr extends Config
 {
     
-    public static $attributes = array();
+    protected static $attributes = array();
     /*
     * Sets a template attribute
     *
@@ -39,15 +39,7 @@ class Bittr extends Config
         }
         
         $template = file($template_name, FILE_IGNORE_NEW_LINES);
-        $template =  new Template($template, $template_name);
-		
-		//excape all character that can posible be use as a tag
-        list(Template::$open, Template::$close) = array_map(function($values)
-        {
-            return addcslashes($values, '.\+*?[^]($){}|');
-            
-        }, array_values(static::$tags));
-		
+        $template =  new Template($template, static::$attributes, static::$tags, $template_name);
         return $template->compile();
     }
     

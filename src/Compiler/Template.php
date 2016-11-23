@@ -6,27 +6,36 @@ class Template
 {
     //holds uncompiled template string
     private $lines = array();
+    
+    //holds attributes
+    private $attributes = array();
 	
-	public static $name = null;
-	
-	public static $line_number = 0;
+	private $name = null;
     
     
     //opening tag identifier
-    public static $open = null;
+    private $open = null;
     
     //closing tag identifier
-    public static $close = null;
+    private $close = null;
     /*
     * Construct
     *
     * return void
     * @param (mixed) string to compile
     */
-    public function __construct($template_array, $name)
+    public function __construct($template_array, $attributes, $tags, $name)
     {
+        $this->attributes = $attributes;
         $this->lines = $template_array;
-		static::$name = $name;
+		$this->name = $name;
+        
+        //excape all character that can posible be use as a tag
+        list($this->open, $this->close) = array_map(function($values)
+        {
+            return addcslashes($values, '.\+*?[^]($){}|');
+            
+        }, array_values($tags));
         
     }
     
@@ -38,15 +47,16 @@ class Template
 		
 		foreach ($this->lines as $line => $strings) {
 			
-			static::$line_number = $line;
-            $req_inc = '/' . static::$open . '\s*(req|inc) \'(.*?)\'\s*' . static::$close .'/';
-
+			asType: {
+            $req_inc = '/' . $this->open . '\s*(req|inc) \'(.*)\'\s*' . $this->close .'/';
 			if (preg_match_all($req_inc, $strings, $matched)) {
-				\Sandbox\GetFile::asType($matched, $this->lines, $line, static::$name);
+					\Sandbox\GetFile::asType($matched, $this->lines, $line, &$this->name);
+					goto asType;
+				}
 			}
 
 		}
-        return $this->lines;
+        var_dump($this->lines);
     }
     
     /*
@@ -56,6 +66,6 @@ class Template
     */
     public function compile()
     {
-        return $this->getSyntax();
+        $this->getSyntax();
     }
 }
