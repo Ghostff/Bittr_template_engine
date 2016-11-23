@@ -4,6 +4,7 @@ namespace Sandbox;
 
 class Variable
 {
+	private static $json = null;
 	/*
 	* check if array is multidimensional
 	*
@@ -20,26 +21,58 @@ class Variable
 	
 	private static function refrence($identifier, $string)
 	{
-		$json = file_get_contents(CONFIG_PATH . 'Refrences.json');
-		$function = json_decode($json);
+		$identifier = ltrim($identifier, '.');
 		
-		var_dump($json, $function);
+		if ( ! function_exists($identifier)) {
+			
+			if ( ! static::$json) {
+				$json = json_decode(file_get_contents(CONFIG_PATH . 'Refrences.json'), 1);
+				static::$json = $json;
+			}
+			else {
+				$json = static::$json;	
+			}
+
+			if (array_key_exists($identifier, $json)) {
+				$call_function = $json[$identifier];
+				return $call_function($string);
+			}
+			else {
+				new \Compiler\Except('Function (' . $identifier . ') not defined');
+			}
+			
+		}
+		else {
+			return $identifier($string);	
+		}
+		
+		
+		
+		//var_dump(static::$json);
 	}
 	
 	public static function evaluate($type, &$line_string, $line_num, &$file_name)
 	{
 		$attributes = \Compiler\Bittr::$attributes;
 		$string = null;
-
+		
+		//if user is trying to define a varibale
+		$defining = false;
+		
         foreach ($type[1] as $key => $value)
 		{
-			if (isset($attributes[$value])) {
+			if (isset($attributes[$value]) || (isset($type[5][$key]) && $defining = trim($type[5][$key]) != false)) {
 				
 				$string = null;
-				if ( ! is_array($attributes[$value])) {
+				if ($defining) {
+					\Compiler\Bittr::$attributes[$value] = $type[5][$key];
+					$line_string[$line_num] = str_replace($type[0][$key], null, $line_string[$line_num]);
+					return 'reExec';
+				}
+				elseif ( ! is_array($attributes[$value])) {
 					$string = $attributes[$value];
-					if (isset($type[3][$key])) {
-						$string = static::refrence($type[3][$key], $string);	
+					if ((isset($type[2][$key])) && (trim($type[2][$key]) != false)) {
+						$string = static::refrence($type[2][$key], $string);	
 					}
 				}
 				else {

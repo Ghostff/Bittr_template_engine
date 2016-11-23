@@ -1,6 +1,7 @@
 <?php
 
 namespace Compiler;
+use \Config\Config;
 
 class Template
 {
@@ -45,9 +46,24 @@ class Template
 				\Sandbox\GetFile::evaluate($matched, $this->lines, $line, static::$name);
 			}
 			
-			$var_type = '/' . static::$open . '\s*(\w+)([\.\w]*|(\s*<(.*?)>)*)\s*' . static::$close .'/'; 
-			if (preg_match_all($var_type, $strings, $matched)) {
-				\Sandbox\Variable::evaluate($matched, $this->lines, $line, static::$name);
+			$statement = '/' . static::$open . '\s*' . Config::$statement['if'];
+			$statement .= ' (\w+)\s*' . static::$close;
+			$statement .= '(.*?)' . static::$open . '\s*' . Config::$statement['endif'];
+			$statement .= '\s*' . static::$close . '/s';
+			//var_dump($statement);
+			if (preg_match_all($statement, $strings, $matched)) {
+				\Sandbox\Statement::evaluate($matched, $this->lines, $line, static::$name);
+			}
+			
+			reExec: {
+				$var_type = '/' . static::$open . '\s*(\w+)([\.\w]*|(\s*<(.*?)>)*|\s*=\s*\'(.*?)\')\s*' . static::$close .'/'; 
+				if (preg_match_all($var_type, $strings, $matched)) {
+					$varible = \Sandbox\Variable::evaluate($matched, $this->lines, $line, static::$name);
+					if ($varible == 'reExec') {
+						$strings = $this->lines[$line];
+						goto reExec;	
+					}
+				}
 			}
 			
 
