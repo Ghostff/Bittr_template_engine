@@ -5,34 +5,28 @@ namespace Compiler;
 class Template
 {
     //holds uncompiled template string
-    private $string = null;
-    
-    //holds attributes
-    private $attributes = array();
+    private $lines = array();
+	
+	public static $name = null;
+	
+	public static $line_number = 0;
     
     
     //opening tag identifier
-    private $open = null;
+    public $open = null;
     
     //closing tag identifier
-    private $close = null;
+    public $close = null;
     /*
     * Construct
     *
     * return void
     * @param (mixed) string to compile
     */
-    public function __construct($template_string, $attributes, $tags)
+    public function __construct($template_array, $name)
     {
-        $this->attributes = $attributes;
-        $this->string = $template_string;
-        
-        //excape all character that can posible be use as a tag
-        list($this->open, $this->close) = array_map(function($values)
-        {
-            return addcslashes($values, '.\+*?[^]($){}|');
-            
-        }, array_values($tags));
+        $this->lines = $template_array;
+		static::$name = $name;
         
     }
     
@@ -41,14 +35,17 @@ class Template
     {
         $new_String = null;
         
-        asType: {
-            $req_inc = '/' . $this->open . '\s*(req|inc) \'(.*)\'\s*' . $this->close .'/';
-            if (preg_match_all($req_inc, $this->string, $matched)) {
-                \Sandbox\GetFile::asType($matched, $this->string);
-                goto asType;
-            }
-        }
-        var_dump($this->string);
+		
+		foreach ($this->lines as $line => $strings) {
+			
+			static::$line_number = $line;
+            $req_inc = '/' . $this->open . '\s*(req|inc) \'(.*?)\'\s*' . $this->close .'/';
+			if (preg_match_all($req_inc, $strings, $matched)) {
+				\Sandbox\GetFile::asType($matched, $this->lines, $line, static::$name);
+			}
+
+		}
+        return $this->lines;
     }
     
     /*
