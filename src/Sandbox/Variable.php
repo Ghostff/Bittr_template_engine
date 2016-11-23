@@ -55,21 +55,13 @@ class Variable
 	{
 		$attributes = \Compiler\Bittr::$attributes;
 		$string = null;
-		
-		//if user is trying to define a varibale
-		$defining = false;
-		
+
         foreach ($type[1] as $key => $value)
 		{
-			if (isset($attributes[$value]) || (isset($type[5][$key]) && $defining = trim($type[5][$key]) != false)) {
+			if (isset($attributes[$value])) {
 				
 				$string = null;
-				if ($defining) {
-					\Compiler\Bittr::$attributes[$value] = $type[5][$key];
-					$line_string[$line_num] = str_replace($type[0][$key], null, $line_string[$line_num]);
-					return 'reExec';
-				}
-				elseif ( ! is_array($attributes[$value])) {
+				if ( ! is_array($attributes[$value])) {
 					$string = $attributes[$value];
 					if ((isset($type[2][$key])) && (trim($type[2][$key]) != false)) {
 						$string = static::refrence($type[2][$key], $string);	

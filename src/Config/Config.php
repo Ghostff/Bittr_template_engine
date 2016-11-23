@@ -12,13 +12,6 @@ class Config
       'open' => '@{',
       'close' => '}'
     );
-	
-	public static $statement = array(
-		'if'        => 'if',
-		'else if'	=> 'eif',
-		'else'		=> 'else',
-		'endif'		=> 'enf'
-	);
     
     protected static $log = null;
     
