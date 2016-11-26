@@ -38,15 +38,17 @@ class Bittr extends \Config\Config
             $template_name = static::$template_name . DIRECTORY_SEPARATOR . $template_name;
         }
         
-        $template = file($template_name, FILE_IGNORE_NEW_LINES);
-        $template =  new Template($template, $template_name);
-        
-        //excape all character that can posible be use as a tag
+		//excape all character that can posible be use as a tag
         list(Template::$open, Template::$close) = array_map(function($values)
         {
             return addcslashes($values, '.\+*?[^]($){}|');
             
         }, array_values(static::$tags));
+		
+        $template = file($template_name, FILE_IGNORE_NEW_LINES);
+        $template =  new Template($template, $template_name);
+        
+        
         
         return implode(PHP_EOL, $template->compile());
     }

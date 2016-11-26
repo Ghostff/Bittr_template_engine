@@ -28,47 +28,75 @@ class Template
     {
         $this->lines = $template_array;
         static::$name = $name;
+		
+		$this->req_ptn = '/' . static::$open . '\s*(req|inc) \'(.*?)\'\s*' . static::$close .'/';
+		$this->var_ptn = '/' . static::$open . '\s*(\w+)([\.\w]*|(\s*<(.*?)>)*|\s*=\s*\'(.*?)\')\s*' . static::$close .'/';
+		
+		$this->if_ptn = '/' . static::$open . '\s*' . Config::$statement['if'] . ' (\w+)\s*' . static::$close .'/';
+		$this->endif_ptn = '/' . static::$open . '\s*' . Config::$statement['endif'] . '\s*' . static::$close . '/';
         
     }
+	
+	private function checkfileSystem($strings, &$line_content, $line)
+	{
+		if (preg_match_all($this->req_ptn, $strings, $matched)) {
+			\Sandbox\GetFile::evaluate($matched, $line_content, $line, static::$name);
+		}
+	}
+	
+	private function checkVaribales($strings, &$line_content, $line)
+	{
+		reExec: {
+			if (preg_match_all($this->var_ptn, $strings, $matched)) {
+				$varible = \Sandbox\Variable::evaluate($matched, $line_content, $line, static::$name);
+				if ($varible == 'reExec') {
+					$strings = $line_content[$line];
+					goto reExec;    
+				}
+			}
+		}
+	}
+	
+	private function checkStatement($strings, &$line_content, $line, &$if_attribute, &$is_if_body)
+	{
+		if (preg_match($this->if_ptn, $strings, $matched)) {
+			$if_attribute[] = array($line, $matched);
+			$is_if_body = true;
+			return true;
+		}
+		elseif (preg_match($this->endif_ptn, $strings, $matched)) {
+			$if_attribute[] = array($line, $matched);
+			$is_if_body = false;
+			\Sandbox\Statement::evaluate($if_attribute, $line_content);
+			var_dump(111);
+			return true;
+		}
+		elseif ($is_if_body) {
+			$if_attribute[] = array($line, $strings);
+			return true;
+		}
+		return false;
+	}
     
     
-    private function getSyntax()
+    private function getSyntax($line_content, $line_number = null)
     {
         $new_String = null;
         
-        
-        foreach ($this->lines as $line => $strings) {
-            
-            static::$line_number = $line;
-            $req_inc = '/' . static::$open . '\s*(req|inc) \'(.*?)\'\s*' . static::$close .'/';
+		$if_attribute = array();
+		$is_if_body = false;
 
-            if (preg_match_all($req_inc, $strings, $matched)) {
-                \Sandbox\GetFile::evaluate($matched, $this->lines, $line, static::$name);
-            }
+        foreach ($line_content as $line => $strings) {
             
-            $statement = '/' . static::$open . '\s*' . Config::$statement['if'];
-            $statement .= ' (\w+)\s*' . static::$close;
-            $statement .= '(.*?)' . static::$open . '\s*' . Config::$statement['endif'];
-            $statement .= '\s*' . static::$close . '/s';
-            //var_dump($statement);
-            if (preg_match_all($statement, $strings, $matched)) {
-                \Sandbox\Statement::evaluate($matched, $this->lines, $line, static::$name);
-            }
-            
-            reExec: {
-                $var_type = '/' . static::$open . '\s*(\w+)([\.\w]*|(\s*<(.*?)>)*|\s*=\s*\'(.*?)\')\s*' . static::$close .'/'; 
-                if (preg_match_all($var_type, $strings, $matched)) {
-                    $varible = \Sandbox\Variable::evaluate($matched, $this->lines, $line, static::$name);
-                    if ($varible == 'reExec') {
-                        $strings = $this->lines[$line];
-                        goto reExec;    
-                    }
-                }
-            }
-            
+			static::$line_number = ($line_number) ? $line_number : $line;
+			if ($this->checkStatement($strings, $line_content, $line, $if_attribute, $is_if_body)) {
+				continue;
+			}
+			$this->checkfileSystem($strings, $line_content, $line);
+			$this->checkVaribales($strings, $line_content, $line);
 
         }
-        return $this->lines;
+        return $line_content;
     }
     
     /*
@@ -78,6 +106,6 @@ class Template
     */
     public function compile()
     {
-        return $this->getSyntax();
+        return $this->getSyntax($this->lines);
     }
 }

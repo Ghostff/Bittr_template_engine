@@ -61,6 +61,7 @@ class Variable
         
         foreach ($type[1] as $key => $value)
         {
+
             if (isset($attributes[$value]) || (isset($type[5][$key]) && $defining = trim($type[5][$key]) != false)) {
                 
                 $string = null;
@@ -76,8 +77,8 @@ class Variable
                     }
                 }
                 else {
-                    if (isset($type[4][$key])) {
-                        
+					
+                    if (isset($type[4][$key]) && trim($type[4][$key]) != false) {
                         if ( ! self::isMultidimensional($attributes[$value])) {
                             $string = implode($type[4][$key], $attributes[$value]);
                         }
