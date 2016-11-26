@@ -14,7 +14,7 @@ Config Methods
 References
 ----------
 `inc` : includes and evaluates the specified file             
-`req` :  alias of `inc` but throw an error upon failure            
+`req` : alias of `inc` but throws an error upon failure
 
 
 
