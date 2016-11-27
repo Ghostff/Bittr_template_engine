@@ -7,6 +7,7 @@ require 'src' . DIRECTORY_SEPARATOR . 'init.php';
 //Remove on production
 const DEVELOPMENT_ENV = true;
 
-Bittr::setAttribute('name', 'FooBar');
+Bittr::setAttribute('name', array('Foo', 'Bar'));
+Bittr::setAttribute('age', 10);
 
 var_dump(Bittr::compile('new'));
