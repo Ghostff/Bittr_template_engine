@@ -12,6 +12,8 @@ class Config
       'open' => '@{',
       'close' => '}'
     );
+	
+	public static $allow_labe_display = '!';
     
     public static $statement = array(
         'if'        => 'if',
@@ -19,6 +21,8 @@ class Config
         'else'      => 'else',
         'endif'     => 'enf'
     );
+	
+	public static $is_arr = '<>';
     
     protected static $log = null;
     

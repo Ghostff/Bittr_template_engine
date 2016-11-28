@@ -1,3 +1,4 @@
-
-
+@{ foo = 'Bar' }
+[ label: 'the (!) at the end of the label bellow prevents it from being removed while outputing' ]
+[ label: 'Join and output array elements with (, )' ! ]
 @{ name<, > }

@@ -48,9 +48,9 @@ class Bittr extends \Config\Config
         $template = file($template_name, FILE_IGNORE_NEW_LINES);
         $template =  new Template($template, $template_name);
         
+        $compiled = array_filter(array_map('trim', $template->compile()));
         
-        
-        return implode(PHP_EOL, $template->compile());
+        return implode(PHP_EOL, $compiled);
     }
     
     

@@ -1,2 +1,0 @@
-Error: file (C:\wamp64\www\test\Bittr_template_engine\src\..\Templates\makde.bt) was not found --- C:\wamp64\www\test\Bittr_template_engine\src\Sandbox\GetFile.php Line(34)
-Error: Function (<, >) not defined --- C:\wamp64\www\test\Bittr_template_engine\src\Sandbox\Variable.php Line(51)

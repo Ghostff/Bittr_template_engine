@@ -32,8 +32,10 @@ class Template
         $this->req_ptn = '/' . static::$open . '\s*(req|inc) \'(.*?)\'\s*' . static::$close .'/';
         $this->var_ptn = '/' . static::$open . '\s*(\w+)([\.\w]*|(\s*<(.*?)>)*|\s*=\s*\'(.*?)\')\s*' . static::$close .'/';
         
-        $this->if_ptn = '/' . static::$open . '\s*' . Config::$statement['if'] . ' (\w+)\s*' . static::$close .'/';
+        $this->if_ptn = '/' . static::$open . '\s*' . Config::$statement['if'] . ' (\w+)(<>)*\s*' . static::$close .'/';
         $this->endif_ptn = '/' . static::$open . '\s*' . Config::$statement['endif'] . '\s*' . static::$close . '/';
+		
+		$this->lb_ptn = '/\[\s*label: \'.*?\'\s*(.*)\]/';
         
     }
     
@@ -60,8 +62,6 @@ class Template
     private function checkStatement($strings, &$line_content, $line, &$if_attribute, &$is_if_body, &$if_count)
     {
         if (preg_match($this->if_ptn, $strings, $matched)) {
-            
-            
             if ($if_count > 0) {
                 $if_attribute[] = array($line, $matched[0]);
             }
@@ -76,7 +76,6 @@ class Template
             if ($if_count == 1) {
                 $if_attribute[] = array($line, $matched);
                 $is_if_body = false;
-                
                 \Sandbox\Statement::evaluate($if_attribute, $line_content);
             }
             else {
@@ -93,6 +92,12 @@ class Template
         return false;
     }
     
+	private function checkLabel($strings, &$line_content, $line)
+	{
+		if (preg_match($this->lb_ptn, $strings, $matched)) {
+			\Sandbox\Label::evaluate($matched, $line_content, $line);
+		}
+	}
     
     private function getSyntax($line_content, $line_number = null)
     {
@@ -105,6 +110,7 @@ class Template
         foreach ($line_content as $line => $strings) {
             
             static::$line_number = ($line_number) ? $line_number : $line;
+			$this->checkLabel($strings, $line_content, $line);
             if ($this->checkStatement($strings, $line_content, $line, $if_attribute, $is_if_body, $if_count)) {
                 continue;
             }

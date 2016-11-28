@@ -1,0 +1,5 @@
+Error: Invalid Label Syntax --- C:\wamp64\www\test\Bittr_template_engine\src\Sandbox\Label.php Line(11)
+Error: Invalid Label Syntax --- C:\wamp64\www\test\Bittr_template_engine\src\Sandbox\Label.php Line(12)
+Error: Invalid Label Syntax --- C:\wamp64\www\test\Bittr_template_engine\src\Sandbox\Label.php Line(12)
+Error: Invalid Label Syntax --- C:\wamp64\www\test\Bittr_template_engine\src\Sandbox\Label.php Line(11)
+Error: Invalid Label Syntax ()? --- C:\wamp64\www\test\Bittr_template_engine\src\Sandbox\Label.php Line(11)

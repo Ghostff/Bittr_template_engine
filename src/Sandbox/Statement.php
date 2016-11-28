@@ -14,14 +14,30 @@ class Statement
         $begin = $type[0][0];
         //get the line number og the end of statemen @{ enf }
         $end = end($type);
+
+		
+		$exec_if = false;
+		//check if statment is trying to validate an array
+		if (isset($type[0][1][2]) && ($type[0][1][2] == \Config\Config::$is_arr)) {
+			//get isArray statment identifie
+			$is_arr = $type[0][1][2];
+			if (is_array($attributes[$stement])) {
+				$exec_if = true;
+			}
+		}
+		elseif (array_key_exists($stement, $attributes)) {
+			$exec_if = true;	
+		}
         
         //prevent the statement from displaying:
         //clear out the line that contains the current statemne from @{ if .. to enf } from line buffer
         for ($i = $begin; $i <= $end[0]; $i++) {
             unset($line_string[$i]);    
         }
+		
+		
         //check if key exists in attribute
-        if (array_key_exists($stement, $attributes)) {
+        if ($exec_if) {
             
             $new_if = $type;
             //remove the first(@{ if .. }) and last (@{ enf }) array element which mean all left will be the body of the statement 
