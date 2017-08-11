@@ -19,7 +19,7 @@ class Render extends Processor
         $this->cache_path = __DIR__ . '/../Cache/';
     }
 
-    public function view(array $files, array $data = [], bool $view_if_exist = false): void
+    public function view(array $files, array $data = [], bool $view_if_exist = false): string
     {
         $found_files = [];
         foreach ($files as $file)
@@ -27,7 +27,7 @@ class Render extends Processor
             $file_name = preg_replace('/\.' . $this->extension .'$/', '', $this->path . $file) . '.' . $this->extension;
             if (is_readable($file_name))
             {
-                echo $this->evaluate($file_name);
+                return $this->evaluate($file_name);
             }
             else
             {
