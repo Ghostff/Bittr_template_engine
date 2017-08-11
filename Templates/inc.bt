@@ -1,1 +1,1 @@
-{[ inc 'index|home' req 'make' ]}
+{[ inc 'index|new' req 'make' ]}
