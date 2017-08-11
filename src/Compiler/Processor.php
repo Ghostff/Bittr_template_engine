@@ -23,8 +23,12 @@ class Processor
                 {
                     $replace .= 'include \'' .  $file. '\';';
                 }
+                elseif ($matches[1] == 'req')
+                {
+                    $replace .= 'require \'' .  $file. '\';';
+                }
             }
-            var_dump($matches, $replace);
+            return $replace;
         }, $content);
 
         return $new;
