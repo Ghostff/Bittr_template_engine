@@ -56,9 +56,6 @@ class Render extends Processor
     {
         $name = $this->cache_path . $this->name($name);
         $files = glob($name .'.*');
-
-        var_dump($files);
-
         return false;
 
     }
