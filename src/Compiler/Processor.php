@@ -9,7 +9,7 @@ class Processor
 
     protected function tag(string $content): string
     {
-        return $this->gets(str_replace(['{[', '[[', ']]', '}]'], ['<?php', '<?=', '?>', '?>'], $content));
+        return $this->gets(str_replace(['{[', '[[', ']]', ']}'], ['<?php', '<?=', '?>', '?>'], $content));
     }
 
     protected function gets(string $content): string
