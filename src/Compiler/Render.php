@@ -42,20 +42,18 @@ class Render extends Processor
         $this->extractData($found_files, $data);
     }
 
-    private function name(string $name, bool $set = true): string
+    private function name(string $name): string
     {
-        if ($set)
-        {
-            return rtrim(strtr(base64_encode($name), '+/', '-_'), '=');
-        }
-
         return crc32($name);
     }
 
     private function isCached(string $name): bool
     {
         $name = $this->cache_path . $this->name($name);
-        $files = glob($name .'.*');
+
+        foreach (glob($this->cache_path . ".*") as $filename) {
+            echo "$filename size " . filesize($filename) . "\n";
+        }
         return false;
 
     }
@@ -63,8 +61,7 @@ class Render extends Processor
     private function save(string $name, string $content): void
     {
         $time = filemtime($name);
-        var_dump($this->name($name, false));
-        file_put_contents($this->cache_path . $this->name($name, false) . $time, $content);
+        file_put_contents($this->cache_path . $this->name($name) . $time, $content);
     }
 
     private function evaluate(string $name)
