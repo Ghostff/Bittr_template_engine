@@ -46,10 +46,10 @@ class Render extends Processor
     {
         if ($set)
         {
-            return strtr(base64_encode($name), '+/=', '-_,');
+            return rtrim(strtr(base64_encode($name), '+/', '-_'), '=');
         }
 
-        return base64_decode(strtr($name, '-_,', '+/='));
+        return base64_decode(str_pad(strtr($name, '-_', '+/'), strlen($name) % 4, '=', STR_PAD_RIGHT));
     }
 
     private function isCached(string $name): bool
