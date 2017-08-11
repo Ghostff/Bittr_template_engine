@@ -49,7 +49,7 @@ class Render extends Processor
             return rtrim(strtr(base64_encode($name), '+/', '-_'), '=');
         }
 
-        return $name;
+        return crc32($name);
     }
 
     private function isCached(string $name): bool
