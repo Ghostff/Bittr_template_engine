@@ -15,21 +15,20 @@ class Render extends Processor
         $this->extension = Config::$extension;
     }
 
-    public function view(array $files, array $data = [], bool $if_exist = false)
+    public function view(array $files, array $data = [], bool $if_exist = false): string
     {
         foreach ($files as $file)
         {
             $name = $this->makeName($file);
             if (is_readable($name))
             {
-                $temp = $this->render($name);
-                echo($temp) . PHP_EOL;
+                return $this->render($name);
             }
             else
             {
                 if ($if_exist)
                 {
-                    return;
+                    return '';
                 }
                 $this->exception('Template : "{0}" not found in "{1}"', $file, $name);
             }
