@@ -16,7 +16,7 @@ class Render
     {
         foreach ($files as $file)
         {
-            var_dump(glob($this->path . '*'));
+            var_dump(dir($this->path));
             return $this->path . $file . '.bt';
         }
     }
