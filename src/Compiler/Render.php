@@ -17,7 +17,7 @@ class Render
         foreach ($files as $file)
         {
             var_dump(dir($this->path));
-            return $this->path . $file . '.bt';
+            return $this->path . $file . '.bt'. PHP_EOL . __DIR__;
         }
     }
 }
