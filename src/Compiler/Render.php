@@ -53,7 +53,7 @@ class Render extends Processor
 
         foreach (glob($name . "_[0-9]*") as $filename) {
 
-
+            echo $filename;
         }
         return false;
 
