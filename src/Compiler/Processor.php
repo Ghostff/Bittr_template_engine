@@ -16,7 +16,15 @@ class Processor
     {
         $new =  preg_replace_callback('/(inc|req) \'(.*?)\'/', function(array $matches)
         {
-            var_dump($matches);
+            $replace = '';
+            foreach (explode('|', $matches[2]) as $file)
+            {
+                if ($matches[1] == 'inc')
+                {
+                    $replace .= 'include \'' .  $file. '\';';
+                }
+            }
+            var_dump($matches, $replace);
         }, $content);
 
         return $new;
