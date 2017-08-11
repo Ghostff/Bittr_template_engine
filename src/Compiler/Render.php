@@ -17,23 +17,25 @@ class Render extends Processor
 
     public function view(array $files, array $data = [], bool $if_exist = false): string
     {
+        $rendered = '';
         foreach ($files as $file)
         {
             $name = $this->makeName($file);
             if (is_readable($name))
             {
-                var_dump($files );
-                return $this->render($name);
+                $rendered =  $this->render($name);
             }
             else
             {
                 if ($if_exist)
                 {
-                    return '';
+                    $rendered = '';
                 }
                 $this->exception('Template : "{0}" not found in "{1}"', $file, $name);
             }
         }
+
+        return $rendered;
     }
 
     protected function makeName(string $name)
