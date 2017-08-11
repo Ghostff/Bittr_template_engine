@@ -16,6 +16,7 @@ class Render
     {
         foreach ($files as $file)
         {
+            var_dump(file_exists($this->path . $file . '.bt'));
             return $this->path . $file;
         }
     }
