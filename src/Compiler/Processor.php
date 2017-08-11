@@ -15,7 +15,7 @@ abstract class Processor
         $before =  preg_replace_callback("/(inc|req) '(.*?)'/", function (array $matches)
         {
             $files = explode('|', $matches[2]);
-            return $this->view($files, [], ($matches[1] == 'inc'));
+            return 22;
         }, $before);
 
         return $before;
