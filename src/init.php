@@ -24,8 +24,6 @@ class ClassLoader
 
 ClassLoader::register();
 
-date_default_timezone_set(Config\Config::$time_zone);
-
 //set_exception_handler(array('Compiler\Except', 'handle'));
 //set_error_handler(array('Compiler\Except', 'handle'));
 
