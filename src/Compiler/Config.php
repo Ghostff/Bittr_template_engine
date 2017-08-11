@@ -8,8 +8,15 @@ class Config
 
     public static $path = __DIR__ . '/../../Templates/';
 
-    public function setPath(string $path)
+    public static $extension = 'bt';
+
+    public static function setPath(string $path)
     {
         self::$path = $path;
+    }
+
+    public static function setExtension(string $extension)
+    {
+        self::$extension = $extension;
     }
 }
