@@ -51,8 +51,9 @@ class Render extends Processor
     {
         $name = $this->cache_path . $this->name($name);
 
-        foreach (glob($this->cache_path . "[0-9]*_[0-9]*") as $filename) {
-            echo "$filename size " . filesize($filename) . "\n";
+        foreach (glob($name . "_[0-9]*") as $filename) {
+
+
         }
         return false;
 
