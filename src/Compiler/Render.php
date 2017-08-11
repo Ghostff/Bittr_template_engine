@@ -76,12 +76,13 @@ class Render extends Processor
 
     private function evaluate(string $name)
     {
+        $this->save($name, $this->tag(file_get_contents($name)));
         if ($this->isCached($name))
         {
         }
         else
         {
-            $this->save($name, $this->tag(file_get_contents($name)));
+
         }
     }
 
