@@ -55,7 +55,6 @@ class Render extends Processor
         foreach (glob($name_with_path . "_[0-9]*") as $filename)
         {
             $_ = explode('_', basename($filename));
-            var_dump($_[1] . ' '. $time);
             if ($_[1] == $time)
             {
                 return true;
