@@ -71,6 +71,7 @@ class Render extends Processor
 
     private function evaluate(string $name)
     {
+        var_dump(11);
         if ($this->isCached($name))
         {
 
