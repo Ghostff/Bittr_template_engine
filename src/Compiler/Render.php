@@ -49,14 +49,23 @@ class Render extends Processor
 
     private function isCached(string $name): bool
     {
-        $name = $this->cache_path . $this->name($name);
-
-        foreach (glob($name . "_[0-9]*") as $filename) {
-
-            echo $filename;
+        $time = filemtime($name);
+        $name = $this->name($name);
+        $name_with_path = $this->cache_path . $name;
+        foreach (glob($name_with_path . "_[0-9]*") as $filename) {
+            $_ = explode('_', $filename);
+            var_dump($_[1] = $time);
+            if ($_[1] == $time)
+            {
+                return true;
+            }
+            else
+            {
+                unlink($this->path . $filename);
+                return false;
+            }
         }
         return false;
-
     }
 
     private function save(string $name, string $content): void
