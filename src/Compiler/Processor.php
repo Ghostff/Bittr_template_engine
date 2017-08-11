@@ -14,7 +14,7 @@ abstract class Processor
         $before = file_get_contents($file);
         preg_replace_callback("/(inc|req) '(.*?)'/", function (array $matches)
         {
-            $files = explode('|', $matches[3]);
+            $files = explode('|', $matches[2]);
             $this->view($files);
             var_dump($files);
         }, $before);
