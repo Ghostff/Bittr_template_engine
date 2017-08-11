@@ -9,7 +9,7 @@ class Render
 
     public function __construct()
     {
-        $this->path = Config::$path;
+        $this->path = Helpers::realpath(Config::$path);
     }
 
     public function view(array $files, array $data = [])

@@ -23,3 +23,4 @@ class ClassLoader
 }
 
 ClassLoader::register();
+const DS = DIRECTORY_SEPARATOR;
