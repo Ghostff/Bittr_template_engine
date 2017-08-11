@@ -54,7 +54,7 @@ class Render extends Processor
         $name_with_path = $this->cache_path . $name;
         foreach (glob($name_with_path . "_[0-9]*") as $filename) {
             //$_ = explode('_', $filename, $filename);
-            var_dump($filename);
+            var_dump(basename($filename, '_'));
 
         }
         return false;
