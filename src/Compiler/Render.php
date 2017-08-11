@@ -27,8 +27,7 @@ class Render extends Processor
             $file_name = preg_replace('/\.' . $this->extension .'$/', '', $this->path . $file) . '.' . $this->extension;
             if (is_readable($file_name))
             {
-                $this->evaluate($file_name);
-                include  $file_name;
+                echo $this->evaluate($file_name);
             }
             else
             {
@@ -79,11 +78,14 @@ class Render extends Processor
     {
         if ($this->isCached($name))
         {
+            $cached = '';
         }
         else
         {
-            $this->save($name, $this->tag(file_get_contents($name)));
+            $this->save($name, $cached = $this->tag(file_get_contents($name)));
         }
+
+        return $cached;
     }
 
     private function extractData(array $files_27832dbd892hd299e9hd2, array $passed_89e78287eh5hd82187_data): void
