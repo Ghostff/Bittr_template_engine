@@ -22,6 +22,7 @@ class Render extends Processor
             $name = $this->makeName($file);
             if (is_readable($name))
             {
+                var_dump($file);
                 return $this->render($name);
             }
             else
