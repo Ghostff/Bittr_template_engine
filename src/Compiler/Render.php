@@ -11,6 +11,7 @@ class Render extends Processor
     private $cache_path = null;
 
     private $imported = [];
+    protected $include = null;
 
     public function __construct()
     {
@@ -68,10 +69,11 @@ class Render extends Processor
         return false;
     }
 
-    private function save(string $name, string $content): void
+    private function save(string $name, string $content): string
     {
-        $time = filemtime($name);
-        file_put_contents($this->cache_path . $this->name($name) . '_' . $time, $content);
+        $name = $this->cache_path . $this->name($name) . '_' . filemtime($name);
+        file_put_contents($name, $content);
+        return $name;
     }
 
     private function evaluate(string $name)
@@ -82,11 +84,12 @@ class Render extends Processor
         }
         else
         {
-            $this->save($name, $cached = $this->tag(file_get_contents($name)));
+            $this->include = $this->save($name, $this->tag(file_get_contents($name)));
         }
 
-        return $cached;
+        $this->importFile();
     }
+
 
     private function extractData(array $files_27832dbd892hd299e9hd2, array $passed_89e78287eh5hd82187_data): void
     {
@@ -110,5 +113,10 @@ class Render extends Processor
         }
 
         throw new RuntimeException($format);
+    }
+
+    private function importFile()
+    {
+        include $this->include;
     }
 }
