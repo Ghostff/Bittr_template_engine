@@ -12,11 +12,13 @@ abstract class Processor
     protected function render(string $file): string
     {
         $before = file_get_contents($file);
-        return preg_replace_callback("/(inc|req) '(.*?)'/", function (array $matches)
+        $before =  preg_replace_callback("/(inc|req) '(.*?)'/", function (array $matches)
         {
             $files = explode('|', $matches[2]);
             return $this->view($files, [], ($matches[1] == 'inc'));
         }, $before);
+
+        return $before;
 
     }
 }
