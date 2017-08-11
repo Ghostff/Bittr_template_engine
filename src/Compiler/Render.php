@@ -27,7 +27,6 @@ class Render extends Processor
             $file_name = preg_replace('/\.' . $this->extension .'$/', '', $this->path . $file) . '.' . $this->extension;
             if (is_readable($file_name))
             {
-                var_dump(2222);
                 $this->evaluate($file_name);
             }
             else
@@ -72,7 +71,6 @@ class Render extends Processor
 
     private function evaluate(string $name)
     {
-        var_dump(11);
         if ($this->isCached($name))
         {
 
