@@ -7,8 +7,18 @@ class Processor
 {
     protected $last = null;
 
-    public function tag(string $content): string
+    protected function tag(string $content): string
     {
-        return str_replace(['{[', '[[', ']]', '}]'], ['<?php', '<?=', '?>', '?>'], $content);
+        return $this->gets(str_replace(['{[', '[[', ']]', '}]'], ['<?php', '<?=', '?>', '?>'], $content));
+    }
+
+    protected function gets(string $content): string
+    {
+        $new =  preg_replace_callback('/(inc|req) \'(.*?)\'/', function(array $matches)
+        {
+            var_dump($matches);
+        }, $content);
+
+        return $new;
     }
 }

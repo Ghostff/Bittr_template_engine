@@ -52,7 +52,8 @@ class Render extends Processor
         $time = filemtime($name);
         $name = $this->name($name);
         $name_with_path = $this->cache_path . $name;
-        foreach (glob($name_with_path . "_[0-9]*") as $filename) {
+        foreach (glob($name_with_path . "_[0-9]*") as $filename)
+        {
             $_ = explode('_', basename($filename));
             var_dump($_[1] . ' '. $time);
             if ($_[1] == $time)
@@ -78,7 +79,6 @@ class Render extends Processor
     {
         if ($this->isCached($name))
         {
-
         }
         else
         {
