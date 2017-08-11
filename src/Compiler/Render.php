@@ -61,7 +61,7 @@ class Render extends Processor
             }
             else
             {
-                unlink($this->path . $name);
+                unlink($filename);
                 return false;
             }
         }
