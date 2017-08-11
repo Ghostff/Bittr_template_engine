@@ -61,7 +61,7 @@ class Render extends Processor
     private function save(string $name, string $content): void
     {
         $time = filemtime($name);
-        file_put_contents($this->cache_path . '_'. $this->name($name) . $time, $content);
+        file_put_contents($this->cache_path . $this->name($name) . '_' . $time, $content);
     }
 
     private function evaluate(string $name)
