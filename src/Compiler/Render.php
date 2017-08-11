@@ -28,6 +28,7 @@ class Render extends Processor
             if (is_readable($file_name))
             {
                 $this->evaluate($file_name);
+                include  $file_name;
             }
             else
             {
