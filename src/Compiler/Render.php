@@ -43,7 +43,7 @@ class Render extends Processor
         return $this->template_path . str_replace('.', DS, $name) . '.' .  $this->extension;
     }
 
-    private function exception(): string
+    protected function exception(): string
     {
         $args = func_get_args();
         $format = array_shift($args);
