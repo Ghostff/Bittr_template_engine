@@ -23,7 +23,7 @@ class Render extends Processor
             if (is_readable($name))
             {
                 $temp = $this->render($name);
-                echo($temp);
+                echo($temp) . PHP_EOL;
             }
             else
             {
