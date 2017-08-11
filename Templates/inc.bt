@@ -1,1 +1,1 @@
-[[ inc 'index|home' req 'home' ]]
+[{ inc 'index|home' req 'home' }]
