@@ -21,11 +21,11 @@ class Processor
             {
                 if ($matches[1] == 'inc')
                 {
-                    $replace .= 'include \'' .  $file. '\';';
+                    $replace .= 'include \'' .  $file. '\'; ';
                 }
                 elseif ($matches[1] == 'req')
                 {
-                    $replace .= 'require \'' .  $file. '\';';
+                    $replace .= 'require \'' .  $file. '\'; ';
                 }
             }
             return $replace;
