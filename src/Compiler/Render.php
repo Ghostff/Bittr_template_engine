@@ -23,7 +23,7 @@ class Render extends Processor
             if (is_readable($name))
             {
                 $temp = $this->render($name);
-
+                var_dump($temp);
             }
             else
             {
@@ -34,7 +34,6 @@ class Render extends Processor
                 $this->exception('Template : "{0}" not found in "{1}"', $file, $name);
             }
         }
-        echo $this->template_path;
     }
 
     protected function makeName(string $name)
