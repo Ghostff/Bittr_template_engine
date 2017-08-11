@@ -1,7 +1,1 @@
-
-[ label: 'if name is an array' ]
-@{ if name<> }
-	@{ year = '1999 &' }
-	@{ year.hs }
-@{ enf}
-
+[[  ]]
